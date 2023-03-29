@@ -12,6 +12,7 @@
         <module>snorlax-web</module>
         <module>snorlax-api</module>
         <module>snorlax-api-impl</module>
+        <module>snorlax-common</module>
     </modules>
 
     <parent>
@@ -24,6 +25,13 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
 
