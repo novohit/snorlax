@@ -14,14 +14,10 @@ public enum BizCodeEnum {
 
     SERVER_ERROR(1, "系统异常"),
 
-    /**
-     * 短链分组
-     */
-    GROUP_REPEAT(23001, "分组名重复"),
-    GROUP_OPER_ERROR(23503, "分组操作失败"),
-    GROUP_NOT_EXIST(23404, "分组不存在"),
-    GROUP_CREATE_ERROR(23405, "分组创建失败"),
-    GROUP_DELETE_ERROR(23406, "分组删除失败"),
+    PARAM_ERROR(100400, "参数错误"),
+
+    RECEIVER_LIMIT(100001, "发送人数过多"),
+
 
 
     /**
@@ -40,17 +36,6 @@ public enum BizCodeEnum {
     ACCOUNT_UNREGISTER(250002, "账号不存在"),
     ACCOUNT_PWD_ERROR(250003, "账号或者密码错误"),
     ACCOUNT_UNLOGIN(250004, "账号未登录"),
-
-
-    /**
-     * 短链
-     */
-    SHORT_LINK_NOT_EXIST(260404, "短链不存在"),
-
-    /**
-     * 域名
-     */
-    DOMAIN_NOT_EXIST(270404, "域名不存在"),
 
 
     /**
@@ -113,10 +98,10 @@ public enum BizCodeEnum {
     ;
 
     @Getter
-    private String message;
+    private final String message;
 
     @Getter
-    private int code;
+    private final int code;
 
     BizCodeEnum(int code, String message) {
         this.code = code;

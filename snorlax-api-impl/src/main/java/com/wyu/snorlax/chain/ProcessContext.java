@@ -1,10 +1,12 @@
 package com.wyu.snorlax.chain;
 
 import com.wyu.snorlax.enums.ChainType;
+import com.wyu.snorlax.model.vo.Resp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * 责任链上下文
@@ -16,7 +18,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProcessContext {
+@Accessors(chain = true)
+public class ProcessContext<T extends ProcessModel> {
 
     /**
      * 标识责任链的code
@@ -26,7 +29,7 @@ public class ProcessContext {
     /**
      * 存储责任链上下文数据的模型
      */
-    private ProcessModel model;
+    private T model;
 
     /**
      * 责任链中断的标识
@@ -36,5 +39,5 @@ public class ProcessContext {
     /**
      * 流程处理的结果
      */
-    String response;
+    Resp<Void> response;
 }

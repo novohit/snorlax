@@ -1,5 +1,7 @@
-package com.wyu.snorlax.model;
+package com.wyu.snorlax.model.vo;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import com.wyu.snorlax.enums.BizCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,9 +41,9 @@ public class Resp<T> {
      * @param <K>
      * @return
      */
-//    public <K> K getData(TypeReference<K> typeReference) {
-//        return JSON.parseObject(JSON.toJSONString(data), typeReference);
-//    }
+    public <K> K getData(TypeReference<K> typeReference) {
+        return JSON.parseObject(JSON.toJSONString(data), typeReference);
+    }
 
     /**
      * 成功，不传入数据

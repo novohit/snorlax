@@ -2,10 +2,7 @@ package com.wyu.snorlax.chain;
 
 import com.wyu.snorlax.domain.MessageParam;
 import com.wyu.snorlax.model.MessageTemplate;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
  * @since 2023-04-13
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
