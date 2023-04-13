@@ -1,13 +1,13 @@
 package com.wyu.snorlax.api.v1;
 
-import com.wyu.snorlax.model.MessageTemplate;
+import com.wyu.snorlax.chain.ProcessContext;
+import com.wyu.snorlax.chain.ProcessController;
+import com.wyu.snorlax.enums.ChainCode;
 import com.wyu.snorlax.repository.MessageTemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author novo
@@ -20,10 +20,19 @@ public class TestController {
     @Autowired
     private MessageTemplateRepository repository;
 
+    @Autowired
+    private ProcessController processController;
+
     @GetMapping("/test")
     public void test() {
-        List<MessageTemplate> all = this.repository.findAll();
-        System.out.println(all);
+//        List<MessageTemplate> all = this.repository.findAll();
+//        System.out.println(all);
+
+        ProcessContext context = new ProcessContext();
+        context.setModel("test");
+        context.setChainCode(ChainCode.SEND);
+        processController.process(context);
+
     }
 
 }
