@@ -14,6 +14,6 @@ public class PreParamCheckProcessor implements Processor {
 
     @Override
     public void doProcess(ProcessContext context) {
-        System.out.println("前置参数校验");
+        log.info("前置参数校验");
     }
 }

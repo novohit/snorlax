@@ -2,7 +2,7 @@ package com.wyu.snorlax.api.v1;
 
 import com.wyu.snorlax.chain.ProcessContext;
 import com.wyu.snorlax.chain.ProcessController;
-import com.wyu.snorlax.enums.ChainCode;
+import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.repository.MessageTemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +29,8 @@ public class TestController {
 //        System.out.println(all);
 
         ProcessContext context = new ProcessContext();
-        context.setModel("test");
-        context.setChainCode(ChainCode.SEND);
+        //context.setModel("test");
+        context.setChainType(ChainType.SEND);
         processController.process(context);
 
     }

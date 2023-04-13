@@ -14,6 +14,6 @@ public class AssembleProcessor implements Processor {
 
     @Override
     public void doProcess(ProcessContext context) {
-        System.out.println("装配参数");
+        log.info("装配参数");
     }
 }

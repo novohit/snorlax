@@ -1,6 +1,9 @@
 package com.wyu.snorlax.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
@@ -11,6 +14,9 @@ import java.util.Map;
  * @since 2023-04-12
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MessageParam {
 
     /**

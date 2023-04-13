@@ -1,6 +1,6 @@
 package com.wyu.snorlax.config;
 
-import com.wyu.snorlax.enums.ChainCode;
+import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.processor.AssembleProcessor;
 import com.wyu.snorlax.processor.PreParamCheckProcessor;
 import com.wyu.snorlax.chain.ProcessChain;
@@ -51,7 +51,7 @@ public class PipelineConfig {
     public ProcessController processController() {
         ProcessController processController = new ProcessController();
         Map<String, ProcessChain> processChainMap = new HashMap<>(4);
-        processChainMap.put(ChainCode.SEND.name(), sendChain());
+        processChainMap.put(ChainType.SEND.name(), sendChain());
         processController.setProcessChainMap(processChainMap);
         return processController;
     }

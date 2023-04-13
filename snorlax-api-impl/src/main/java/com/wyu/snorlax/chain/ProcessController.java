@@ -1,8 +1,6 @@
 package com.wyu.snorlax.chain;
 
-import com.wyu.snorlax.chain.ProcessChain;
-import com.wyu.snorlax.chain.ProcessContext;
-import com.wyu.snorlax.enums.ChainCode;
+import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.processor.Processor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +26,12 @@ public class ProcessController {
 
     public void process(ProcessContext context) {
         //根据上下文的Code 执行不同的责任链
-        ChainCode chainCode = context.getChainCode();
-        if (chainCode == null) {
-            log.error("责任链为空, chain_code:[{}]", chainCode);
+        ChainType chainType = context.getChainType();
+        if (chainType == null) {
+            log.error("责任链为空, chain_code:[{}]", chainType);
             throw new RuntimeException("责任链为空");
         }
-        ProcessChain chain = processChainMap.get(chainCode.name());
+        ProcessChain chain = processChainMap.get(chainType.name());
 
         List<Processor> processorList = chain.getProcessorList();
         //遍历某个责任链的流程节点

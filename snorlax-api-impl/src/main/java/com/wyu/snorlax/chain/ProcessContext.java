@@ -1,7 +1,10 @@
 package com.wyu.snorlax.chain;
 
-import com.wyu.snorlax.enums.ChainCode;
+import com.wyu.snorlax.enums.ChainType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 责任链上下文
@@ -10,17 +13,20 @@ import lombok.Data;
  * @since 2023-04-13
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProcessContext {
 
     /**
      * 标识责任链的code
      */
-    private ChainCode chainCode;
+    private ChainType chainType;
 
     /**
      * 存储责任链上下文数据的模型
      */
-    private String model;
+    private ProcessModel model;
 
     /**
      * 责任链中断的标识
