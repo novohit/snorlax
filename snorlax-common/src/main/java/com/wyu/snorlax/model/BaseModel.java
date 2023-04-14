@@ -1,6 +1,7 @@
 package com.wyu.snorlax.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
+@Where(clause = "deleted_at is null")
 public class BaseModel {
 
     @Id

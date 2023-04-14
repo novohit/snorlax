@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class MessageTemplate extends BaseModel{
+public class MessageTemplate extends BaseModel {
 
     private String title;
 
@@ -66,6 +66,20 @@ public class MessageTemplate extends BaseModel{
      */
     private String msgType;
 
+    /**
+     * 屏蔽类型
+     */
+    private String shieldType;
+
+    /**
+     * 模板内容
+     */
+    private String templateContent;
+
+
+    /**
+     * 发送账号（邮件下可有多个发送账号、短信可有多个发送账号..）
+     */
     private Long channelAccountId;
 
     /**

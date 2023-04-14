@@ -42,6 +42,7 @@ public class ProcessController {
                     break;
                 }
             } catch (Exception e2) {
+                e2.printStackTrace();
                 //...
             }
         }

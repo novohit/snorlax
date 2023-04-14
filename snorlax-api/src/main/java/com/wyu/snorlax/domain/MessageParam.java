@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,7 +28,9 @@ public class MessageParam {
     /**
      * 可变参数 占位符
      */
-    private Map<String, String> variables;
+    @Builder.Default
+    // Builder模式会导致缺省值失效 保留缺省值用 @Builder.Default 作用于FIELD
+    private Map<String, String> variables = new HashMap<>();
 
     /**
      * 扩展参数

@@ -18,6 +18,8 @@ public enum BizCodeEnum {
 
     RECEIVER_LIMIT(100001, "发送人数过多"),
 
+    TEMPLATE_NOT_FOUND(100404, "模板不存在"),
+
 
 
     /**

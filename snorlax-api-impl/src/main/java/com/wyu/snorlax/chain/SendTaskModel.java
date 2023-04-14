@@ -2,6 +2,7 @@ package com.wyu.snorlax.chain;
 
 import com.wyu.snorlax.domain.MessageParam;
 import com.wyu.snorlax.model.MessageTemplate;
+import com.wyu.snorlax.model.dto.TaskInfo;
 import lombok.*;
 
 import java.util.List;
@@ -25,4 +26,9 @@ public class SendTaskModel extends ProcessModel{
      * 请求参数
      */
     private List<MessageParam> messageParamList;
+
+    /**
+     * 发送任务的信息
+     */
+    private List<TaskInfo> taskInfo;
 }
