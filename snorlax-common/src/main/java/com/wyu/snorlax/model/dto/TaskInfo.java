@@ -1,5 +1,6 @@
 package com.wyu.snorlax.model.dto;
 
+import com.wyu.snorlax.enums.SendIDType;
 import com.wyu.snorlax.model.bo.Content;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +37,7 @@ public class TaskInfo {
     /**
      * 发送渠道id类型
      */
-    private String idType;
+    private SendIDType idType;
 
     /**
      * 发送渠道

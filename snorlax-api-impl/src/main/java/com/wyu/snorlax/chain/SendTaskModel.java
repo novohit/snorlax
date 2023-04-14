@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SendTaskModel extends ProcessModel{
+public class SendTaskModel extends ProcessModel {
     /**
      * 消息模板Id
      */

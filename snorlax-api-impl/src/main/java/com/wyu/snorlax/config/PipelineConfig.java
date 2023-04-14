@@ -1,6 +1,7 @@
 package com.wyu.snorlax.config;
 
 import com.wyu.snorlax.enums.ChainType;
+import com.wyu.snorlax.processor.AfterParamCheckProcessor;
 import com.wyu.snorlax.processor.AssembleProcessor;
 import com.wyu.snorlax.processor.PreParamCheckProcessor;
 import com.wyu.snorlax.chain.ProcessChain;
@@ -26,6 +27,9 @@ public class PipelineConfig {
     @Autowired
     private AssembleProcessor assembleProcessor;
 
+    @Autowired
+    private AfterParamCheckProcessor afterParamCheckProcessor;
+
     /**
      * 普通发送执行流程
      * 1. 前置参数校验
@@ -38,7 +42,11 @@ public class PipelineConfig {
     @Bean("sendChain")
     public ProcessChain sendChain() {
         ProcessChain processChain = new ProcessChain();
-        processChain.setProcessorList(Arrays.asList(preParamCheckProcessor, assembleProcessor));
+        processChain.setProcessorList(
+                Arrays.asList(
+                        preParamCheckProcessor,
+                        assembleProcessor,
+                        afterParamCheckProcessor));
         return processChain;
     }
 

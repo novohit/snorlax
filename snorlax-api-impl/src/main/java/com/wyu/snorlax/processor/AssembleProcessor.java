@@ -2,13 +2,13 @@ package com.wyu.snorlax.processor;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.google.common.reflect.Reflection;
 import com.wyu.snorlax.chain.ProcessContext;
 import com.wyu.snorlax.chain.SendTaskModel;
 import com.wyu.snorlax.domain.MessageParam;
 import com.wyu.snorlax.enums.BizCodeEnum;
 import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.enums.ChannelType;
+import com.wyu.snorlax.enums.SendIDType;
 import com.wyu.snorlax.model.MessageTemplate;
 import com.wyu.snorlax.model.bo.Content;
 import com.wyu.snorlax.model.dto.TaskInfo;
@@ -16,11 +16,9 @@ import com.wyu.snorlax.model.vo.Resp;
 import com.wyu.snorlax.repository.MessageTemplateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.hibernate.annotations.common.reflection.ReflectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.PropertyPlaceholderHelper;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -76,7 +74,7 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
                     .templateId(template.getId())
                     .bizId(1L)
                     .receiver(new HashSet<>(Arrays.asList(messageParam.getReceiver().split(","))))
-                    .idType(template.getIdType())
+                    .idType(SendIDType.toType(template.getIdType()))
                     .sendChannel(template.getSendChannel())
                     .templateType(template.getTemplateType())
                     .msgType(template.getMsgType())
@@ -91,10 +89,17 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
 
     }
 
+    /**
+     * 根据模板和消息参数通过反射获取真正的消息内容
+     *
+     * @param template
+     * @param messageParam
+     * @return
+     */
     private Content getContent(MessageTemplate template, MessageParam messageParam) {
         String sendChannel = template.getSendChannel();
         Class channelClass = ChannelType.getChannelClass(sendChannel);
-        // 得到模板的 msgContent 和 入参
+        // 获取占位符变量和模板
         Map<String, String> variables = messageParam.getVariables();
         JSONObject jsonObject = JSON.parseObject(template.getTemplateContent());
 
@@ -105,7 +110,6 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
         try {
             Field[] fields = FieldUtils.getAllFields(channelClass);
             content = (Content) channelClass.newInstance();
-            System.out.println(content);
             for (Field field : fields) {
                 // 这个value可能有占位符
                 String value = jsonObject.getString(field.getName());
@@ -118,7 +122,6 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(content);
         return content;
     }
 }
