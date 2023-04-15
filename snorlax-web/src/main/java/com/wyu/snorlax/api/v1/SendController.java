@@ -25,11 +25,11 @@ public class SendController {
     @GetMapping("/send")
     public String testSend() {
         MessageParam param = MessageParam.builder()
-                .receiver("13211291857")
+                .receiver("13211291857,13211291858,13211291858")
                 .build();
         SendRequest sendRequest = SendRequest.builder()
                 .type(ChainType.SEND.name())
-                //.templateId(1L)
+                .templateId(1L)
                 .messageParam(param)
                 .build();
         SendResponse sendResponse = this.sendService.send(sendRequest);

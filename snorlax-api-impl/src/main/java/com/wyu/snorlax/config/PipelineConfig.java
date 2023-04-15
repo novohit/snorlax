@@ -6,6 +6,7 @@ import com.wyu.snorlax.processor.AssembleProcessor;
 import com.wyu.snorlax.processor.PreParamCheckProcessor;
 import com.wyu.snorlax.chain.ProcessChain;
 import com.wyu.snorlax.chain.ProcessController;
+import com.wyu.snorlax.processor.SendMQProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,9 @@ public class PipelineConfig {
     @Autowired
     private AfterParamCheckProcessor afterParamCheckProcessor;
 
+    @Autowired
+    private SendMQProcessor sendMQProcessor;
+
     /**
      * 普通发送执行流程
      * 1. 前置参数校验
@@ -46,7 +50,8 @@ public class PipelineConfig {
                 Arrays.asList(
                         preParamCheckProcessor,
                         assembleProcessor,
-                        afterParamCheckProcessor));
+                        afterParamCheckProcessor,
+                        sendMQProcessor));
         return processChain;
     }
 

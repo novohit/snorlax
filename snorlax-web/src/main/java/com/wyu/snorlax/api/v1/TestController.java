@@ -8,7 +8,9 @@ import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.enums.ChannelType;
 import com.wyu.snorlax.enums.SendIDType;
 import com.wyu.snorlax.model.MessageTemplate;
+import com.wyu.snorlax.model.dto.CustomMessage;
 import com.wyu.snorlax.model.vo.Resp;
+import com.wyu.snorlax.mq.MQProducer;
 import com.wyu.snorlax.repository.MessageTemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,9 @@ public class TestController {
 
     @Autowired
     private ProcessController processController;
+
+    @Autowired
+    private MQProducer mqProducer;
 
     @GetMapping("/test")
     public Resp test() {
@@ -76,6 +81,19 @@ public class TestController {
                 .templateContent("{\"url\":\"\",\"content\":\"欢迎你，${name}\"}")
                 .build();
         this.repository.save(template);
+    }
+
+
+    @GetMapping("/mq")
+    public void mq() {
+        CustomMessage message = CustomMessage.builder()
+                .accountNo(1111L)
+                .bizId("asgasfas-sdfsdf-sdfs")
+                .content("hello-world")
+                .messageId("ttatst")
+                .remark("remark")
+                .build();
+        this.mqProducer.send("helloworld", message);
     }
 
 }

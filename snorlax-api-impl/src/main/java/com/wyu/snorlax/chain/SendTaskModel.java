@@ -28,7 +28,7 @@ public class SendTaskModel extends ProcessModel {
     private List<MessageParam> messageParamList;
 
     /**
-     * 发送任务的信息
+     * 组装后的发送消息
      */
     private List<TaskInfo> taskInfo;
 }
