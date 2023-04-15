@@ -2,6 +2,7 @@ package com.wyu.snorlax.mq;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
 import com.wyu.snorlax.model.dto.CustomMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -26,13 +27,13 @@ public class KafkaMQProducer implements MQProducer {
 
     @Override
     public void send(String topic, CustomMessage customMessage) {
-        String jsonStr = JSON.toJSONString(customMessage);
+        String jsonStr = JSON.toJSONString(customMessage, JSONWriter.Feature.WriteClassName);
         this.kafkaTemplate.send(topic, jsonStr).addCallback(success -> {
             RecordMetadata recordMetadata = success.getRecordMetadata();
             int partition = recordMetadata.partition();
-            ProducerRecord<String, Object> producerRecord = success.getProducerRecord();
+            Object value = success.getProducerRecord().value();
             long offset = recordMetadata.offset();
-            log.info("发送成功,topic:[{}],partition:[{}],offset:[{}],record:[{}]", topic, partition, offset, producerRecord);
+            log.info("发送成功,topic:[{}],partition:[{}],offset:[{}],message:[{}]", topic, partition, offset, value);
         }, failure -> {
             String message = failure.getMessage();
             log.error("发送失败, message:[{}]", message);

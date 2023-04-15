@@ -1,12 +1,10 @@
 package com.wyu.snorlax.processor;
 
-import com.alibaba.fastjson2.JSON;
-import com.google.common.base.Throwables;
 import com.wyu.snorlax.chain.ProcessContext;
 import com.wyu.snorlax.chain.SendTaskModel;
+import com.wyu.snorlax.constant.Constants;
 import com.wyu.snorlax.enums.BizCodeEnum;
 import com.wyu.snorlax.enums.ChainType;
-import com.wyu.snorlax.enums.ChannelType;
 import com.wyu.snorlax.model.dto.CustomMessage;
 import com.wyu.snorlax.model.dto.TaskInfo;
 import com.wyu.snorlax.model.vo.Resp;
@@ -34,10 +32,10 @@ public class SendMQProcessor implements Processor<SendTaskModel> {
         try {
             if (ChainType.SEND.equals(context.getChainType())) {
                 List<TaskInfo> taskInfoList = sendTaskModel.getTaskInfo();
-                CustomMessage customMessage = CustomMessage.builder()
+                CustomMessage message = CustomMessage.builder()
                         .content(taskInfoList)
                         .build();
-                this.mqProducer.send("helloworld", customMessage);
+                this.mqProducer.send(Constants.MQ_TOPIC, message);
             } else if (ChainType.RECALL.equals(context.getChainType())) {
                 // TODO
             }
