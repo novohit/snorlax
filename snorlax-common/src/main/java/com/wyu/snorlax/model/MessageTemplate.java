@@ -3,6 +3,7 @@ package com.wyu.snorlax.model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.Date;
@@ -16,7 +17,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MessageTemplate extends BaseModel{
+@Entity
+public class MessageTemplate extends BaseModel {
 
     private String title;
 
@@ -64,6 +66,20 @@ public class MessageTemplate extends BaseModel{
      */
     private String msgType;
 
+    /**
+     * 屏蔽类型
+     */
+    private String shieldType;
+
+    /**
+     * 模板内容
+     */
+    private String templateContent;
+
+
+    /**
+     * 发送账号（邮件下可有多个发送账号、短信可有多个发送账号..）
+     */
     private Long channelAccountId;
 
     /**
