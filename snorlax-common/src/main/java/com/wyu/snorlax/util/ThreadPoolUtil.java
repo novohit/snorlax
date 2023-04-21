@@ -47,6 +47,7 @@ public class ThreadPoolUtil {
      */
     public static DtpExecutor dtpExecutor(String groupId) {
         return ThreadPoolBuilder.newBuilder()
+                .threadFactory(PRE_FIX + groupId)
                 .threadPoolName(PRE_FIX + groupId)
                 .corePoolSize(ThreadPoolConstant.COMMON_CORE_POOL_SIZE)
                 .maximumPoolSize(ThreadPoolConstant.COMMON_MAX_POOL_SIZE)

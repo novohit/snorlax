@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSONReader;
 import com.wyu.snorlax.config.DynamicThreadPoolContextHolder;
 import com.wyu.snorlax.constant.Constants;
 import com.wyu.snorlax.model.dto.CustomMessage;
+import com.wyu.snorlax.model.dto.Task;
 import com.wyu.snorlax.model.dto.TaskInfo;
 import com.wyu.snorlax.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,8 @@ public class KafkaConsumer {
                 log.info("匹配 groupId:[{}]", groupId);
                 ExecutorService pool = threadPoolContextHolder.route(groupId);
                 for (TaskInfo taskInfo : taskInfoList) {
-                    //pool.execute();
+                    Task task = new Task(taskInfo);
+                    pool.execute(task);
                 }
                 // 手动提交
             }
