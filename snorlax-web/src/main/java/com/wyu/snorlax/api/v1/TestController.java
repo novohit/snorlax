@@ -6,6 +6,7 @@ import com.wyu.snorlax.chain.SendTaskModel;
 import com.wyu.snorlax.domain.MessageParam;
 import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.enums.ChannelType;
+import com.wyu.snorlax.enums.MessageType;
 import com.wyu.snorlax.enums.SendIDType;
 import com.wyu.snorlax.model.MessageTemplate;
 import com.wyu.snorlax.model.dto.CustomMessage;
@@ -75,7 +76,7 @@ public class TestController {
                 .idType(SendIDType.PHONE.name())
                 .sendChannel(ChannelType.SMS.name())
                 .msgStatus(10)
-                .msgType("通知")
+                .msgType(MessageType.NOTICE.name())
                 .templateType("技术方调用")
                 .shieldType("不屏蔽")
                 .templateContent("{\"url\":\"\",\"content\":\"欢迎你，${name}\"}")

@@ -80,7 +80,8 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
                     .msgType(template.getMsgType())
                     .shieldType(template.getShieldType())
                     .channelAccountId(template.getChannelAccountId())
-                    .content(getContent(template, messageParam)).build();
+                    .content(getContent(template, messageParam))
+                    .build();
 
             taskInfoList.add(taskInfo);
         }

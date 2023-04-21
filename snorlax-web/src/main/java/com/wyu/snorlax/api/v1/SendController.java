@@ -36,7 +36,7 @@ public class SendController {
                 .build();
         SendRequest sendRequest = SendRequest.builder()
                 .type(ChainType.SEND.name())
-                .templateId(1L)
+                .templateId(2L)
                 .messageParam(param)
                 .build();
         SendResponse sendResponse = this.sendService.send(sendRequest);
