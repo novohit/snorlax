@@ -1,4 +1,4 @@
-package com.wyu.snorlax.mq.consumer;
+package com.wyu.snorlax.consumer;
 
 import com.wyu.snorlax.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;

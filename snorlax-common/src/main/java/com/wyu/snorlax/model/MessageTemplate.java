@@ -1,12 +1,8 @@
 package com.wyu.snorlax.model;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.util.Date;
 
 /**
  * @author novo
@@ -51,7 +47,7 @@ public class MessageTemplate extends BaseModel {
     /**
      * 发送渠道
      */
-    private String sendChannel;
+    private String channelType;
 
     /**
      * 10.运营类 20.技术类接口调用

@@ -2,7 +2,6 @@ package com.wyu.snorlax.config;
 
 import com.dtp.core.thread.DtpExecutor;
 import com.wyu.snorlax.util.CommonUtil;
-import com.wyu.snorlax.util.ThreadPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -75,7 +75,7 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
                     .bizId(1L)
                     .receiver(new HashSet<>(Arrays.asList(messageParam.getReceiver().split(","))))
                     .idType(SendIDType.toType(template.getIdType()))
-                    .sendChannel(template.getSendChannel())
+                    .channelType(template.getChannelType())
                     .templateType(template.getTemplateType())
                     .msgType(template.getMsgType())
                     .shieldType(template.getShieldType())
@@ -98,7 +98,7 @@ public class AssembleProcessor implements Processor<SendTaskModel> {
      * @return
      */
     private Content getContent(MessageTemplate template, MessageParam messageParam) {
-        String sendChannel = template.getSendChannel();
+        String sendChannel = template.getChannelType();
         Class channelClass = ChannelType.getChannelClass(sendChannel);
         // 获取占位符变量和模板
         Map<String, String> variables = messageParam.getVariables();

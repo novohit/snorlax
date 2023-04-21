@@ -38,7 +38,7 @@ public class CommonUtil {
     }
 
     public static String getGroupIdByTaskInfo(TaskInfo taskInfo) {
-        String channelCodeEn = ChannelType.toType(taskInfo.getSendChannel()).getCodeEn();
+        String channelCodeEn = ChannelType.toType(taskInfo.getChannelType()).getCodeEn();
         String messageCodeEn = MessageType.toType(taskInfo.getMsgType()).getCodeEn();
         return channelCodeEn + "." + messageCodeEn;
     }

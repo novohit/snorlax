@@ -1,4 +1,4 @@
-package com.wyu.snorlax.mq.consumer;
+package com.wyu.snorlax.consumer;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
@@ -6,7 +6,7 @@ import com.alibaba.fastjson2.JSONReader;
 import com.wyu.snorlax.config.DynamicThreadPoolContextHolder;
 import com.wyu.snorlax.constant.Constants;
 import com.wyu.snorlax.model.dto.CustomMessage;
-import com.wyu.snorlax.model.dto.Task;
+import com.wyu.snorlax.domain.Task;
 import com.wyu.snorlax.model.dto.TaskInfo;
 import com.wyu.snorlax.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +36,13 @@ public class KafkaConsumer {
     @Autowired
     private DynamicThreadPoolContextHolder threadPoolContextHolder;
 
+    /**
+     * 发送消息是网络IO密集型，为了提高MQ消费速率，很自然的想到可以使用多线程，也就是使用线程池
+     *
+     * @param record
+     * @param topic
+     * @param groupId
+     */
     @KafkaListener(topics = {Constants.MQ_TOPIC}, concurrency = "1")
     public void msgHandler(ConsumerRecord<?, String> record, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.GROUP_ID) String groupId) {
         Optional<String> value = Optional.ofNullable(record.value());

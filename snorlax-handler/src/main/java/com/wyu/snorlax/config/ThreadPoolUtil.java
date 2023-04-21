@@ -1,11 +1,10 @@
-package com.wyu.snorlax.util;
+package com.wyu.snorlax.config;
 
 import com.dtp.common.em.QueueTypeEnum;
 import com.dtp.common.em.RejectedTypeEnum;
 import com.dtp.core.DtpRegistry;
 import com.dtp.core.support.ThreadPoolBuilder;
 import com.dtp.core.thread.DtpExecutor;
-import com.wyu.snorlax.config.ThreadPoolExecutorShutdownDefinition;
 import com.wyu.snorlax.constant.ThreadPoolConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

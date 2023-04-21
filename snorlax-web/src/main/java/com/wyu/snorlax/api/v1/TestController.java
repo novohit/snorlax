@@ -8,6 +8,7 @@ import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.enums.ChannelType;
 import com.wyu.snorlax.enums.MessageType;
 import com.wyu.snorlax.enums.SendIDType;
+import com.wyu.snorlax.config.ThreadPoolExecutorShutdownDefinition;
 import com.wyu.snorlax.model.MessageTemplate;
 import com.wyu.snorlax.model.dto.CustomMessage;
 import com.wyu.snorlax.model.vo.Resp;
@@ -74,7 +75,7 @@ public class TestController {
                 .modifier("novo")
                 .status(1)
                 .idType(SendIDType.PHONE.name())
-                .sendChannel(ChannelType.SMS.name())
+                .channelType(ChannelType.SMS.name())
                 .msgStatus(10)
                 .msgType(MessageType.NOTICE.name())
                 .templateType("技术方调用")
