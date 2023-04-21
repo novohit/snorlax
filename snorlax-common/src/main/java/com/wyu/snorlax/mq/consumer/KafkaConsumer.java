@@ -3,12 +3,14 @@ package com.wyu.snorlax.mq.consumer;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
+import com.wyu.snorlax.config.DynamicThreadPoolContextHolder;
 import com.wyu.snorlax.constant.Constants;
 import com.wyu.snorlax.model.dto.CustomMessage;
 import com.wyu.snorlax.model.dto.TaskInfo;
 import com.wyu.snorlax.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -19,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author novo
@@ -28,6 +31,9 @@ import java.util.Optional;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) // 开启多例
 @Slf4j
 public class KafkaConsumer {
+
+    @Autowired
+    private DynamicThreadPoolContextHolder threadPoolContextHolder;
 
     @KafkaListener(topics = {Constants.MQ_TOPIC}, concurrency = "1")
     public void msgHandler(ConsumerRecord<?, String> record, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.GROUP_ID) String groupId) {
@@ -41,7 +47,10 @@ public class KafkaConsumer {
             // 每个消费者组只关心自己组的消息
             if (!CollectionUtils.isEmpty(taskInfoList) && groupId.equals(CommonUtil.getGroupIdByTaskInfo(taskInfoList.get(0)))) {
                 log.info("匹配 groupId:[{}]", groupId);
-                // TODO
+                ExecutorService pool = threadPoolContextHolder.route(groupId);
+                for (TaskInfo taskInfo : taskInfoList) {
+                    //pool.execute();
+                }
                 // 手动提交
             }
         }
