@@ -145,7 +145,6 @@ public class TestController {
         int time = 60;
         int count = 3;
         List<String> res = (List<String>) this.redisTemplate.execute(lockScript, Arrays.asList("key1",  "key2", "key3"), time, count);
-        redisCache.redisTemplate.opsForValue().setIfAbsent("hello",1, 60, TimeUnit.SECONDS);
         return res;
     }
 }

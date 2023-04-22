@@ -13,5 +13,6 @@ public class Constants {
      * JSON默认值
      */
     public final static String EMPTY_JSON_OBJECT = "{}";
+
     public final static String EMPTY_VALUE_JSON_ARRAY = "[]";
 }

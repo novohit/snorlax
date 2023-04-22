@@ -19,6 +19,8 @@ public class DeduplicationRuleService {
 
     public static final String DEDUPLICATION_RULE_KEY = "deduplicationRule";
 
+    public static final String ENABLE_LUA_KEY = "lua";
+
     @Autowired
     private ConfigService configService;
 
@@ -29,6 +31,8 @@ public class DeduplicationRuleService {
      */
     public void duplicate(TaskInfo taskInfo) {
         String deduplicationConfig = this.configService.getProperty(DEDUPLICATION_RULE_KEY, Constants.EMPTY_JSON_OBJECT);
+        String enableLua = this.configService.getProperty(ENABLE_LUA_KEY, "false");
+        System.setProperty(ENABLE_LUA_KEY, enableLua);
         String type = DeduplicationType.CONTENT.name();
         DeduplicationParam param = DeduplicationContextHolder.builder(type).build(deduplicationConfig, taskInfo);
         if (param != null) {
