@@ -3,6 +3,7 @@ package com.wyu.snorlax.api.v1;
 import com.wyu.snorlax.chain.ProcessContext;
 import com.wyu.snorlax.chain.ProcessController;
 import com.wyu.snorlax.chain.SendTaskModel;
+import com.wyu.snorlax.deduplication.DeduplicationRuleService;
 import com.wyu.snorlax.domain.MessageParam;
 import com.wyu.snorlax.enums.ChainType;
 import com.wyu.snorlax.enums.ChannelType;
@@ -11,6 +12,7 @@ import com.wyu.snorlax.enums.SendIDType;
 import com.wyu.snorlax.config.ThreadPoolExecutorShutdownDefinition;
 import com.wyu.snorlax.model.MessageTemplate;
 import com.wyu.snorlax.model.dto.CustomMessage;
+import com.wyu.snorlax.model.dto.TaskInfo;
 import com.wyu.snorlax.model.vo.Resp;
 import com.wyu.snorlax.mq.MQProducer;
 import com.wyu.snorlax.repository.MessageTemplateRepository;
@@ -36,6 +38,9 @@ public class TestController {
 
     @Autowired
     private ProcessController processController;
+
+    @Autowired
+    private DeduplicationRuleService deduplicationRuleService;
 
     @Autowired
     private MQProducer mqProducer;
@@ -96,6 +101,12 @@ public class TestController {
                 .remark("remark")
                 .build();
         this.mqProducer.send("helloworld", message);
+    }
+
+    @GetMapping("/deduplicate")
+    public void deduplicate() {
+
+        //this.deduplicationRuleService.duplicate();
     }
 
 }
