@@ -9,6 +9,7 @@ import com.wyu.snorlax.service.SendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -26,9 +27,9 @@ public class SendController {
     private SendService sendService;
 
     @GetMapping("/send")
-    public String testSend() {
+    public String testSend(@RequestParam("arg") String arg) {
         Map<String, String> map = new HashMap<>();
-        map.put("name", "novo");
+        map.put("name", "nihao" + arg);
         map.put("age", "11");
         MessageParam param = MessageParam.builder()
                 .receiver("13211291857,13211291858,13211291859")

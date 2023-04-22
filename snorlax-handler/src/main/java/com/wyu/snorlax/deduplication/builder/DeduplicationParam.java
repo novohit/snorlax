@@ -18,8 +18,9 @@ public class DeduplicationParam {
 
     /**
      * 去重时间窗
+     * 默认一天
      */
-    private int time = 60;
+    private int time = 60 * 60 * 24;
 
     /**
      * 窗内去重次数阈值

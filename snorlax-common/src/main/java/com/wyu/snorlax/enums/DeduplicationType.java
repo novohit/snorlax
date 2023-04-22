@@ -19,7 +19,7 @@ public enum DeduplicationType {
     /**
      * 渠道接受消息 频次 去重
      */
-    FREQUENCY(20, "一天内N次相同渠道去重"),
+    CHANNEL(20, "一天内N次相同渠道去重"),
 
     ;
 

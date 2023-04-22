@@ -36,6 +36,7 @@ public abstract class AbstractDeduplicationService implements DeduplicationServi
     }
 
     /**
+     * 去重核心逻辑 如果子类需要自定义去重逻辑可以重写该方法
      * TODO Redis非原子性去重
      * 作为消息中心去重并不需要强一致性，从业务上来讲，偶尔并发时出现去重失败也没有太大的关系
      * 在性能和一致性上做一个权衡
