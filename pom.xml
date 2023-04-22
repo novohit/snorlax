@@ -13,6 +13,7 @@
         <module>snorlax-api</module>
         <module>snorlax-api-impl</module>
         <module>snorlax-common</module>
+        <module>snorlax-handler</module>
     </modules>
 
     <parent>

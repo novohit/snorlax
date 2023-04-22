@@ -42,7 +42,7 @@ public class TaskInfo {
     /**
      * 发送渠道
      */
-    private String sendChannel;
+    private String channelType;
 
     /**
      * 10.运营类 20.技术类接口调用
