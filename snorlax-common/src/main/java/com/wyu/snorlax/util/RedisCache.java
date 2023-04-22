@@ -1,11 +1,13 @@
 package com.wyu.snorlax.util;
 
+import com.google.common.base.Throwables;
+import org.apache.kafka.common.protocol.types.Field;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.BoundSetOperations;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -17,8 +19,12 @@ import java.util.concurrent.TimeUnit;
 @Component
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
 public class RedisCache {
+
     @Autowired
     public RedisTemplate redisTemplate;
+
+    private static final Logger log = LoggerFactory.getLogger(RedisCache.class);
+
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
@@ -94,6 +100,45 @@ public class RedisCache {
     public <T> T getCacheObject(final String key) {
         ValueOperations<String, T> operation = redisTemplate.opsForValue();
         return operation.get(key);
+    }
+
+    /**
+     * mGet将结果封装为Map
+     *
+     * @param keys
+     */
+    public <T> Map<String, T> mGet(List<String> keys) {
+        HashMap<String, T> result = new HashMap<>(keys.size());
+        try {
+            List<T> values = redisTemplate.opsForValue().multiGet(keys);
+            if (!CollectionUtils.isEmpty(values)) {
+                for (int i = 0; i < keys.size(); i++) {
+                    if (values.get(i) != null) {
+                        result.put(keys.get(i), values.get(i));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("RedisUtils#mGet fail! e:{}", Throwables.getStackTraceAsString(e));
+        }
+        return result;
+    }
+
+    /**
+     * pipeline 设置 key-value 并设置过期时间
+     */
+    public <T> void pipelineSetEx(Map<String, Integer> keyValues, long seconds) {
+        try {
+            redisTemplate.executePipelined((RedisCallback<String>) connection -> {
+                for (Map.Entry<String, Integer> entry : keyValues.entrySet()) {
+                    connection.setEx(entry.getKey().getBytes(), seconds,
+                            String.valueOf(entry.getValue()).getBytes());
+                }
+                return null;
+            });
+        } catch (Exception e) {
+            log.error("RedisUtils#pipelineSetEx fail! e:{}", Throwables.getStackTraceAsString(e));
+        }
     }
 
     /**

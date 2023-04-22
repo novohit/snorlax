@@ -31,7 +31,7 @@ public class SendController {
         map.put("name", "novo");
         map.put("age", "11");
         MessageParam param = MessageParam.builder()
-                .receiver("13211291857,13211291858,13211291858")
+                .receiver("13211291857,13211291858,13211291859")
                 .variables(map)
                 .build();
         SendRequest sendRequest = SendRequest.builder()

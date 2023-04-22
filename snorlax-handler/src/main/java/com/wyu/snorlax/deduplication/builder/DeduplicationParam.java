@@ -19,10 +19,10 @@ public class DeduplicationParam {
     /**
      * 去重时间窗
      */
-    private Long time;
+    private int time;
 
     /**
      * 窗内去重次数阈值
      */
-    private Integer count;
+    private int count;
 }

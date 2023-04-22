@@ -33,6 +33,7 @@ public class DeduplicationRuleService {
         DeduplicationParam param = DeduplicationContextHolder.builder(type).build(deduplicationConfig, taskInfo);
         if (param != null) {
             log.info("{}", param);
+            DeduplicationContextHolder.selectService(type).deduplicate(param);
             // TODO
         }
     }

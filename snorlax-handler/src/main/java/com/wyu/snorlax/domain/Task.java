@@ -31,10 +31,11 @@ public class Task implements Runnable {
         // 2.平台通用去重
         if (!CollectionUtils.isEmpty(taskInfo.getReceiver())) {
             this.deduplicationRuleService.duplicate(taskInfo);
+            log.info("去重后:{}", taskInfo.getReceiver());
         }
         // 路由到具体的Handler执行
         if (!CollectionUtils.isEmpty(taskInfo.getReceiver())) {
-            HandlerContextHolder.route(taskInfo.getChannelType()).handle(taskInfo);
+            //HandlerContextHolder.route(taskInfo.getChannelType()).handle(taskInfo);
         }
     }
 
