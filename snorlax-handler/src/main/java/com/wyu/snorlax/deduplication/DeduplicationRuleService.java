@@ -35,20 +35,27 @@ public class DeduplicationRuleService {
      * @param taskInfo
      */
     public void duplicate(TaskInfo taskInfo) {
-        String deduplicationConfig = this.configService.getProperty(DEDUPLICATION_RULE_KEY, Constants.EMPTY_JSON_OBJECT);
+        // 获取设置的去重策略 deduplicationPolicy = ["content","channel"]
         String deduplicationPolicy = this.configService.getProperty(DEDUPLICATION_POLICY_KEY, Constants.EMPTY_VALUE_JSON_ARRAY);
+        // 获取每种策略的具体去重配置
+        String deduplicationConfig = this.configService.getProperty(DEDUPLICATION_RULE_KEY, Constants.EMPTY_JSON_OBJECT);
         JSONArray jsonArray = JSONArray.parseArray(deduplicationPolicy);
         List<String> deduplicationList = jsonArray.toJavaList(String.class);
 
         String enableLua = this.configService.getProperty(ENABLE_LUA_KEY, "false");
         System.setProperty(ENABLE_LUA_KEY, enableLua);
 
+        // 去重
         deduplicationList.forEach(deduplicationType -> {
-            DeduplicationParam param = DeduplicationContextHolder.builder(deduplicationType).build(deduplicationConfig, taskInfo);
-            if (param != null) {
-                log.info("{}", param);
-                DeduplicationContextHolder.selectService(deduplicationType).deduplicate(param);
-                // TODO
+            try {
+                DeduplicationParam param = DeduplicationContextHolder.builder(deduplicationType).build(deduplicationConfig, taskInfo);
+                if (param != null) {
+                    log.info("{}", param);
+                    DeduplicationContextHolder.selectService(deduplicationType).deduplicate(param);
+                    // TODO
+                }
+            } catch (Exception e) {
+                log.error("deduplicationType:[{}] 去重失败", deduplicationType, e);
             }
         });
     }
