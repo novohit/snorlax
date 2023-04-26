@@ -35,7 +35,7 @@ public class Task implements Runnable {
         }
         // 路由到具体的Handler执行
         if (!CollectionUtils.isEmpty(taskInfo.getReceiver())) {
-            //HandlerContextHolder.route(taskInfo.getChannelType()).handle(taskInfo);
+            HandlerContextHolder.route(taskInfo.getChannelType()).handle(taskInfo);
         }
     }
 

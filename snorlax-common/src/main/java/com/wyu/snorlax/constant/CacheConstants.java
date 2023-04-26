@@ -11,7 +11,7 @@ public class CacheConstants {
      */
     public static final String CONTENT_DEDUPLICATE_KEY_PATTERN = "snorlax:deduplicate:content:%s:%s:%s";
 
-    public static final String CHANNEL_DEDUPLICATE_KEY_PATTERN = "snorlax:deduplicate:channel:%s:%s";
+    public static final String CHANNEL_DEDUPLICATE_KEY_PATTERN = "snorlax:deduplicate:channel:%s:%s:%s";
 
     /**
      * 登录用户 redis key
