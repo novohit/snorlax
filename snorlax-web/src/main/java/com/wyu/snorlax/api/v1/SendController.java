@@ -43,4 +43,22 @@ public class SendController {
         SendResponse sendResponse = this.sendService.send(sendRequest);
         return JSONObject.toJSONString(sendResponse);
     }
+
+    @GetMapping("/email")
+    public String testEmail(@RequestParam("arg") String arg) {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "nihao" + arg);
+        map.put("age", "11");
+        MessageParam param = MessageParam.builder()
+                .receiver("weixiong_zhu@163.com,zwx_info@163.com")
+                .variables(map)
+                .build();
+        SendRequest sendRequest = SendRequest.builder()
+                .type(ChainType.SEND.name())
+                .templateId(3L)
+                .messageParam(param)
+                .build();
+        SendResponse sendResponse = this.sendService.send(sendRequest);
+        return JSONObject.toJSONString(sendResponse);
+    }
 }

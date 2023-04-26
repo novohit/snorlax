@@ -1,5 +1,6 @@
 package com.wyu.snorlax.enums;
 
+import com.wyu.snorlax.model.bo.EmailContent;
 import com.wyu.snorlax.model.bo.SmsContent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,8 @@ import java.util.stream.Stream;
 public enum ChannelType {
 
     SMS(30, "sms(短信)", SmsContent.class, "sms"),
+
+    EMAIL(40, "email(邮件)", EmailContent.class, "email"),
 
     ;
 

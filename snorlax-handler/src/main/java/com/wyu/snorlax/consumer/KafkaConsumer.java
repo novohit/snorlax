@@ -48,13 +48,14 @@ public class KafkaConsumer {
         Optional<String> value = Optional.ofNullable(record.value());
         if (value.isPresent()) {
             CustomMessage message = JSONObject.parseObject(value.get(), CustomMessage.class, JSONReader.Feature.SupportAutoType);
-            log.info("接收成功,topic:[{}],partition:[{}],offset:[{}],message:[{}]", record.topic(), record.partition(), record.offset(), message);
+            //log.info("接收成功,topic:[{}],partition:[{}],offset:[{}],message:[{}]", record.topic(), record.partition(), record.offset(), message);
             JSONArray jsonArray = (JSONArray) message.getContent();
             List<TaskInfo> taskInfoList = jsonArray.toJavaList(TaskInfo.class);
-            log.info("groupId:[{}]", groupId);
+            //log.info("groupId:[{}]", groupId);
             // 每个消费者组只关心自己组的消息
             if (!CollectionUtils.isEmpty(taskInfoList) && groupId.equals(CommonUtil.getGroupIdByTaskInfo(taskInfoList.get(0)))) {
                 log.info("匹配 groupId:[{}]", groupId);
+                log.info("接收成功,topic:[{}],partition:[{}],offset:[{}],message:[{}]", record.topic(), record.partition(), record.offset(), message);
                 ExecutorService pool = threadPoolContextHolder.route(groupId);
                 for (TaskInfo taskInfo : taskInfoList) {
                     Task task = new Task(taskInfo);

@@ -1,5 +1,8 @@
 package com.wyu.snorlax.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,10 +11,12 @@ import java.util.regex.Pattern;
  * @since 2023-02-26 12:07
  */
 public class CheckUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(CheckUtil.class);
     /**
      * 邮箱正则
      */
-    private static final Pattern MAIL_PATTERN = Pattern.compile("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
+    private static final Pattern MAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$");
 
     /**
      * 手机号正则
@@ -32,6 +37,7 @@ public class CheckUtil {
             return false;
         }
         Matcher m = MAIL_PATTERN.matcher(email);
+        //log.info("{}", m.matches());
         return m.matches();
     }
 
